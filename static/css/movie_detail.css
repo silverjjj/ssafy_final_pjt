@@ -1,0 +1,100 @@
+.detail-red-line {
+    width: 10vw;
+    height: 5px;
+    background-color: rgb(153, 0, 0);
+}
+
+.detail-red-line-lg {
+    width: 5vw;
+    height: 5px;
+    background-color: rgb(153, 0, 0);
+}
+
+.movie-detail-title {
+    font-size: xx-large;
+    color: white;
+    font-weight: 700;
+}
+
+.movie-detail-otitle {
+    font-size: larger;
+    color: grey;
+    font-weight: 500;
+}
+
+.movie-detail-date {
+    font-size: large;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-vote {
+    font-size: large;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-lan {
+    font-size: large;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-genre {
+    font-size: large;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-overview {
+    font-size: medium;
+    color: rgb(129, 129, 129);
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    text-align: justify;
+}
+
+/* small */
+.movie-detail-title-sm {
+    font-size: x-large;
+    color: white;
+    font-weight: 700;
+}
+
+.movie-detail-otitle-sm {
+    font-size: large;
+    color: grey;
+    font-weight: 500;
+}
+
+.movie-detail-date-sm {
+    font-size: medium;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-vote-sm {
+    font-size: medium;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-lan-sm {
+    font-size: medium;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-genre-sm {
+    font-size: medium;
+    color: rgb(185, 185, 185);
+    font-weight: 300;
+}
+
+.movie-detail-overview-sm {
+    font-size: small;
+    color: rgb(129, 129, 129);
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    text-align: justify;
+}

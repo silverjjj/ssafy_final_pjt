@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- 화면 클때 -->
+<div class="d-none d-lg-block try">
+    <!-- 오늘의 영화 -->
+    <div class="d-flex">
+        <div class="d-flex w-75">
+            <img src="https://image.tmdb.org/t/p/original/{{ choice.backdrop_path }}" class="d-inline-block w-100 carousel-image-md" alt="today's movie">
+        </div>
+        <div class="d-flex w-25 pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line-lg mb-2"></div>
+                <div class="row today-choice-intro mb-5">실시간 추천 영화</div>
+                <div class="row today-choice-title">{{ choice.title }}</div>
+                <div class="row today-choice-otitle mb-5">{{ choice.original_title }}</div>
+                <div class="row today-choice-vote">평점 : {{ choice.vote_average }}</div>
+                <div class="row today-choice-date">개봉 : {{ choice.release_date }}</div>
+                <ul class="row today-choice-genre">
+                    {% for genre in choice_genre %}
+                        <li class="today-choice-genre-item">| {{ genre.name }} |</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <div class="row justify-content-start">
+                    <a href="{% url 'movies:m_detail' choice.pk %}" class="btn btn-secondary btn-sm text-light px-2">영화 상세보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- 추천영화 리스트&검색 -->
+    <div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="mx-5 px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+                    <div class="row w-75 mx-auto mt-5 pt-5">
+                        <form class="form-inline my-2 my-md-0 w-100" method="get" action="{% url 'movies:find2' %}">
+                            <input class="form-control w-75" type="text" placeholder="영화 제목을 검색해주세요" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                            <button class="btn btn-outline-secondary w-25">search</button>>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="mx-5 px-3">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">평점 높은 영화</div>
+                    <div class="row">
+                        {% for movie in movies_rate %}
+                        <div class="col-2 px-2 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="high-rate movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="mx-5 px-3">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">장르별 인기영화</div>
+                    <div class="row">
+                        {% for movie,genre in movies_genre %}
+                        <div class="col-2 px-2 my-2 imgtry">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white genre-ex">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0 row" alt="genre best">
+                                <div class="row justify-content-center genre-ex">{{ genre }}</div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="mx-5 px-3">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">대중적인 영화</div>
+                    <div class="row">
+                        {% for movie in movies_popular %}
+                        <div class="col-2 px-2 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="mx-5 px-3">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">한국영화 추천</div>
+                    <div class="row">
+                        {% for movie in movies_korea %}
+                        <div class="col-2 px-2 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 화면 중간 -->
+<div class="d-none d-sm-block d-lg-none mb-5">
+    <!-- 캐러셀 -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators" style="z-index: 1;">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active" style="z-index: 1;"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1" style="z-index: 1;"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2" style="z-index: 1;"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://image.tmdb.org/t/p/original/{{ choice.backdrop_path }}" class="d-block w-100 carousel-image-md" alt="poster image">
+            <div class="carousel-caption d-none d-sm-block" style="z-index: 0;">
+              <h5>Today's Movie for you</h5>
+              <p>{{ choice.title }}</p>
+              <div class="row justify-content-center">
+                <a href="{% url 'movies:m_detail' choice.pk %}" class="btn btn-danger btn-sm text-white">영화 상세보기</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="/static/img/carousel/foryou.jpg" class="d-block w-100" alt="영화 추천 이미지">
+            <div class="carousel-caption d-none d-sm-block">
+              <h5>나만을 위한 영화 추천받기</h5>
+              <p>빠른 추천을 받을 수 있는 Quick-recommendation, 회원을 위한 정확한 recommendation</p>
+              <div class="row justify-content-center">
+                <a href="{% url 'movies:recommendation' %}" class="btn btn-danger btn-sm text-white">추천 받기</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="/static/img/carousel/choice.jpg" class="d-block w-100" alt="영화 검색 이미지">
+            <div class="carousel-caption d-none d-sm-block">
+              <h5>영화 검색하기</h5>
+              <p>보고싶은 영화 또는 이미 본 영화 제목을 검색한 뒤, 평점을 주세요</p>
+              <div class="row justify-content-center">
+                <a href="{% url 'movies:find' %}" class="btn btn-danger btn-sm text-white">영화 검색</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!-- 영화추천 -->
+    <div class="mb-5 pb-2">
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+                    <div class="row w-100 mx-0">
+                        <form class="form-inline w-100 my-2 my-md-0 px-0" method="get" action="{% url 'movies:find2' %}">
+                            <input class="form-control w-75" type="text" placeholder="Search" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                            <button class="btn btn-outline-secondary w-25">search</button>>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">평점 높은 영화</div>
+                    <div class="row">
+                        {% for movie in movies_rate %}
+                        <div class="col-3 px-1 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="high-rate movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">장르별 인기영화</div>
+                    <div class="row">
+                        {% for movie,genre in movies_genre %}
+                        <div class="col-3 px-1 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0 row" alt="genre best">
+                                <div class="row justify-content-center genre-ex">{{ genre }}</div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">대중적인 영화</div>
+                    <div class="row">
+                        {% for movie in movies_popular %}
+                        <div class="col-3 px-1 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="my-4 mx-2 pt-5">
+            <div class="d-flex pl-4 pr-4 align-items-end">
+                <div class="">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4">한국영화 추천</div>
+                    <div class="row">
+                        {% for movie in movies_korea %}
+                        <div class="col-3 px-1 my-2">
+                            <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                                <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 화면작을때 -->
+<div class="d-block d-sm-none mb-5 pb-5">
+    <!-- 오늘의 영화 -->
+    <div class="my-4 mx-2">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">실시간 추천 영화</div>
+                <img src="https://image.tmdb.org/t/p/original/{{ choice.poster_path }}" class="w-100 mx-0 row" alt="today's movie">
+                <div class="row today-choice-title-sm mt-3 justify-content-center">{{ choice.title }}</div>
+                <div class="row today-choice-otitle-sm mb-5 justify-content-center">{{ choice.original_title }}</div>
+                <div class="row today-choice-vote-sm justify-content-center">평점 : {{ choice.vote_average }}</div>
+                <div class="row today-choice-date-sm justify-content-center">개봉 : {{ choice.release_date }}</div>
+                <ul class="row today-choice-genre-sm justify-content-center mt-3">
+                    {% for genre in choice_genre %}
+                        <li class="today-choice-genre-item">| {{ genre.name }} |</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <div class="row justify-content-center">
+                    <a href="{% url 'movies:m_detail' choice.pk %}" class="btn btn-danger btn-sm text-white">영화 상세보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 영화추천 -->
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+                <div class="row w-100 mx-0">
+                    <form class="form-inline w-100 my-2 my-md-0" method="get" action="{% url 'movies:find2' %}">
+                        <input class="form-control w-75" type="text" placeholder="Search" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                        <button class="btn btn-outline-secondary w-25">search</button>>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">평점 높은 영화</div>
+                <div class="row">
+                    {% for movie in movies_rate %}
+                    <div class="col-4 px-1 my-2">
+                        <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                            <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="high-rate movie">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">장르별 인기영화</div>
+                <div class="row">
+                    {% for movie,genre in movies_genre %}
+                    <div class="col-4 px-1 my-2">
+                        <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                            <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0 row" alt="genre best">
+                            <div class="row justify-content-center genre-ex">{{ genre }}</div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">대중적인 영화</div>
+                <div class="row">
+                    {% for movie in movies_popular %}
+                    <div class="col-4 px-1 my-2">
+                        <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                            <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">한국영화 추천</div>
+                <div class="row">
+                    {% for movie in movies_korea %}
+                    <div class="col-4 px-1 my-2">
+                        <a href="{% url 'movies:m_detail' movie.pk %}" class="text-white">
+                            <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100 mx-0" alt="popular movie">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

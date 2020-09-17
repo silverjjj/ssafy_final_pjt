@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- md보다 클때 -->
+<!-- find2로 들어왔을 때 : 영화 검색창에 입력해서 들어온 경우 -->
+
+<div class="d-none d-xl-block">
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+                <div class="row w-100">
+                    <form class="form-inline my-2 my-md-0 w-100" method="get" action="{% url 'movies:find2' %}">
+                        <input class="form-control w-75" type="text" placeholder="키워드 입력" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                        <button class="btn btn-outline-secondary w-25">SEARCH:D</button>>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_superuser %}
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">백업 DB 검색</div>
+                <div class="row w-100">
+                    <form class="form-inline my-2 my-md-0 w-100" method="get" action="{% url 'movies:find_store' %}">
+                        <input class="form-control w-75" type="text" placeholder="키워드 입력" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                        <button class="btn btn-outline-secondary w-25">SEARCH:D</button>>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">검색 결과</div>
+                {% if movies.count %}
+                <div class="row w-100 mb-5 pb-5">
+                    '{{ keyword }}' 에 대한 검색결과 입니다.
+                </div>
+                <div class="row w-100 mb-5 pb-5">
+                    {% for movie in movies %}
+                    <div class="col-4 row w-100 mx-0 my-3">
+                        <div class="col-4"><img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100" alt=""></div>
+                        <div class="col-8">
+                            <div class="row text-white">{{ movie.title }}</div>
+                            <div class="row text-secondary">{{ movie.original_title }}</div>
+                            <div class="row text-dark">RATING : {{ movie.vote_average }}</div>
+                            <div class="row mt-3 justify-content-end my-2">
+                                {% if request.resolver_match.url_name == 'find2' %}
+                                <a href="{% url 'movies:m_detail' movie.pk %}"  class="btn w-50 btn-sm py-0 px-1 btn-outline-secondary text-white">영화 상세보기</a>
+                                {% else %}
+                                <a href="{% url 'movies:plus' movie.pk %}"  class="btn w-50 btn-sm py-0 px-1 btn-outline-secondary text-white">DB에 영화 추가</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="row w-100 mb-4 text-muted justify-content-center">
+                    '{{ keyword }}' 에 대한 검색결과가 없습니다.
+                </div>
+                <div class="row w-100 mb-5 pb-5 text-white justify-content-center">
+                    <a href="{% url 'movies:please' %}" class="btn btn-outline-danger">영화 DB 업데이트 요청 보내기</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- md일때 -->
+<div class="d-none d-md-block d-xl-none">
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+                <div class="row w-100">
+                    <form class="form-inline my-2 my-md-0 w-100" method="get" action="{% url 'movies:find2' %}">
+                        <input class="form-control w-75" type="text" placeholder="키워드 입력" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                        <button class="btn btn-outline-secondary w-25">SEARCH:D</button>>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_superuser %}
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">백업 DB 검색</div>
+                <div class="row w-100">
+                    <form class="form-inline my-2 my-md-0 w-100" method="get" action="{% url 'movies:find_store' %}">
+                        <input class="form-control w-75" type="text" placeholder="키워드 입력" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                        <button class="btn btn-outline-secondary w-25">SEARCH:D</button>>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="mx-5 px-3 w-100">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">검색 결과</div>
+                {% if movies.count %}
+                <div class="row w-100 mb-5 pb-1">
+                    '{{ keyword }}' 에 대한 검색결과 입니다.
+                </div>
+                <div class="row w-100 mb-5 pb-5">
+                    {% for movie in movies %}
+                    <div class="col-6 row w-100 mx-0 my-3">
+                        <div class="col-4"><img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100" alt=""></div>
+                        <div class="col-8">
+                            <div class="row text-white">{{ movie.title }}</div>
+                            <div class="row text-secondary">{{ movie.original_title }}</div>
+                            <div class="row text-dark">RATING : {{ movie.vote_average }}</div>
+                            <div class="row mt-3 justify-content-end my-2">
+                                {% if request.resolver_match.url_name == 'find2' %}
+                                <a href="{% url 'movies:m_detail' movie.pk %}"  class="btn w-25 btn-sm py-0 px-1 btn-outline-secondary text-white">영화 상세보기</a>
+                                {% else %}
+                                <a href="{% url 'movies:plus' movie.pk %}"  class="btn w-25 btn-sm py-0 px-1 btn-outline-secondary text-white">DB에 영화 추가</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="row w-100 mb-4 text-muted justify-content-center">
+                    '{{ keyword }}' 에 대한 검색결과가 없습니다.
+                </div>
+                <div class="row w-100 mb-5 pb-5 text-white justify-content-center">
+                    <a href="{% url 'movies:please' %}" class="btn btn-outline-danger">영화 DB 업데이트 요청 보내기</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- md보다 작을때 -->
+<div class="d-block d-md-none mt-5">
+    <div class="d-flex pl-4 pr-4 align-items-end">
+        <div class="container w-100">
+            <div class="row red-line mb-2"></div>
+            <div class="row today-choice-intro-sm mb-4">영화 DB 검색</div>
+            <div class="row w-100 mx-0">
+                <form class="form-inline w-100 my-2 my-md-0" method="get" action="{% url 'movies:find2' %}">
+                    <input class="form-control w-75" type="text" placeholder="Search" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                    <button class="btn btn-outline-secondary w-25"><img src="/static/img/search.png" alt="search" height="15px"></button>>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% if user.is_superuser %}
+<div class="d-block d-md-none mt-5">
+    <div class="d-flex pl-4 pr-4 align-items-end">
+        <div class="container w-100">
+            <div class="row red-line mb-2"></div>
+            <div class="row today-choice-intro-sm mb-4">백업 DB 검색</div>
+            <div class="row w-100 mx-0">
+                <form class="form-inline w-100 my-2 my-md-0" method="get" action="{% url 'movies:find_store' %}">
+                    <input class="form-control w-75" type="text" placeholder="Search" aria-label="Search" name="b" value="{{b}}" style="filter: brightness(50%);">
+                    <button class="btn btn-outline-secondary w-25"><img src="/static/img/search.png" alt="search" height="15px"></button>>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="d-block d-md-none my-5 pb-5">
+    <div class="d-flex pl-4 pr-4 align-items-end">
+        <div class="container w-100">
+            <div class="row red-line mb-2"></div>
+            <div class="row today-choice-intro-sm mb-4">검색 결과</div>
+            {% if movies.count %}
+            <div class="row w-100 mb-5 pb-5">
+                '{{ keyword }}' 에 대한 검색결과 입니다.
+            </div>
+            {% for movie in movies %}
+            <div class="row w-100 mx-0 my-3">
+                <div class="col-4"><img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100" alt=""></div>
+                <div class="col-8">
+                    <div class="row text-white">{{ movie.title }}</div>
+                    <div class="row text-secondary">{{ movie.original_title }}</div>
+                    <div class="row text-dark">RATING : {{ movie.vote_average }}</div>
+                    <div class="row mt-3 justify-content-end my-2">
+                        {% if request.resolver_match.url_name == 'find2' %}
+                        <a href="{% url 'movies:m_detail' movie.pk %}"  class="btn w-100 btn-sm py-0 px-1 btn-outline-secondary text-secondary">영화 상세보기</a>
+                        {% else %}
+                        <a href="{% url 'movies:plus' movie.pk %}"  class="btn w-100 btn-sm py-0 px-1 btn-outline-secondary text-secondary">DB에 영화 추가</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row container mb-4 text-muted justify-content-center text-center">
+            '{{ keyword }}' 에 대한 검색결과가 없습니다.
+        </div>
+        <div class="row w-100 mb-5 pb-5 text-white justify-content-center">
+            <a href="{% url 'movies:please' %}" class="btn btn-outline-danger">영화 DB 업데이트 요청 보내기</a>
+        </div>
+        {% endif %}        
+    </div>
+</div>
+
+{% endblock %}

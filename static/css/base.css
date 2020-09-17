@@ -1,0 +1,90 @@
+body {
+    background-color: black !important;
+    height: 100%;
+    width: 100%;
+}
+
+/* 네비게이션바 */
+
+.navbox {
+    background-color: black;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.top-navbar {
+    padding: 2vh 0 2vh 0;
+    width: 100%;
+}
+
+.left-nav {
+    margin-left: 30px;
+}
+
+.left-nav-logo {
+    font-weight: 900;
+    font-size: xx-large;
+    color: rgb(226, 226, 226);
+    text-shadow: 4px 4px 7px rgb(138, 135, 135);
+    letter-spacing: 0.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.left-nav-logo:hover {
+    text-decoration: none;
+    color: rgb(179, 179, 179);
+    cursor: pointer;
+}
+
+.left-nav-logo-ex {
+    font-size: smaller;
+    color: grey;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.right-nav {
+    margin-right: 20px;
+}
+
+
+.right-nav-items {
+    list-style-type: none;
+    margin-top: 15px;
+}
+
+.nav-link {
+    padding: 10px 8px 10px 8px !important;
+    color: white;
+}
+
+.nav-link:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+/* bottom nav */
+.bottom-navbar {
+    background-color: black;
+}
+
+.bottom-nav-items {
+    padding: 0 0 0 0;
+    margin: 10px 0;
+    list-style-type: none;
+}
+
+.bottom-nav-item-ex {
+    font-size: xx-small;
+    color: grey;
+    margin-top: 5px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.bottom-nav-item-link {
+    color: grey;
+}
+
+.bottom-nav-item-link:hover {
+    text-decoration: none;
+}

@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWEEZERS</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/recommendation.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body class="main-body">
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            [{{ message.tags }}]
+            [{{ message.message }}]
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="our-main">
+        <div class="row text-center h-100 mw-100 mx-0 d-flex justify-content-center align-items-center">
+            <div  class="our-main-url">
+                <div class="col-12 text-center d-flex justify-content-center">
+                    <div>
+                        {% if request.user.is_authenticated %}
+                        <div class="animate__animated animate__slideInDown animate__slow rec-logoname">{{ user.username }} 님을 위해</div>
+                        <div class="animate__animated animate__slideInDown animate__slow rec-logoex mt-3">
+                            TWEEZERS 가 엄선한 추천영화
+                        </div>
+                        {% else %}
+                        <div class="animate__animated animate__slideInDown animate__slow rec-logoname">TWEEZERS 이용자를 위해</div>
+                        <div class="animate__animated animate__slideInDown animate__slow rec-logoex mt-3">
+                            TWEEZERS 가 엄선한 추천영화
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-4 w-100 mx-auto">
+                    <!-- 1 -->
+                    <button type="button" class="col-8 col-sm-5 mx-1 btn btn-outline-warning mt-2" data-toggle="modal" data-target="#exampleModal1">
+                        RANDOM
+                    </button>
+                    
+                    <!-- 1 -->
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: rgb(37, 37, 37);">
+                            <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Today's random movie</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body text-black" style="border-bottom: 0px;">
+                            <div class="row">
+                                <div class="col-5"><img src="https://image.tmdb.org/t/p/original/{{ random.poster_path }}" class="w-100" alt="random movie" ></div>
+                                <div class="col-7 ">
+                                    <div class="row text-white h5 mt-3">「 {{ random.title }} 」</div>
+                                    <div class="row text-secondary h6 mb-3 pb-3"><small>{{ random.original_title }}</small></div>
+                                    <div class="row text-secondary">평  점 : {{ random.vote_average }}</div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal-footer"style="border-top: 0px;">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            <a href="{% url 'movies:m_detail' random.pk %}" class="btn btn-warning btn-sm">상세보기</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- 2 -->
+                    <button type="button" class="col-8 col-sm-5 mx-1 btn btn-outline-success mt-2" data-toggle="modal" data-target="#exampleModal2">
+                        괜찮은 영화:)
+                    </button>
+                    
+                    <!-- 2 -->
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: rgb(37, 37, 37);">
+                            <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">A "good" movie</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body text-black" style="border-bottom: 0px;">
+                            <div class="row">
+                                <div class="offset-1 col-5"><img src="https://image.tmdb.org/t/p/original/{{ notbad.poster_path }}" class="w-100" alt="random movie" ></div>
+                                <div class="col-6">
+                                    <div class="row text-white h5 mt-3">「 {{ notbad.title }} 」</div>
+                                    <div class="row text-secondary h6 mb-3 pb-3"><small>{{ notbad.original_title }}</small></div>
+                                    <div class="row text-secondary">평  점 : {{ notbad.vote_average }}</div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal-footer"style="border-top: 0px;">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            <a href="{% url 'movies:m_detail' notbad.pk %}" class="btn btn-success btn-sm">상세보기</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- 3 -->
+                    <button type="button" class="col-8 col-sm-10 mx-1 btn btn-outline-danger mt-2" data-toggle="modal" data-target="#exampleModal3">
+                        PREMIUM
+                    </button>
+                    
+                    <!-- 3 -->
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: rgb(37, 37, 37);">
+                            <div class="modal-header" style="border-bottom: 0px;">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">PREMIUM SERVICE</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body text-black" style="border-bottom: 0px;">
+                            <div class="row">
+                            {% if request.user.is_authenticated %}
+                                <div class="col-12 text-secondary">프리미엄 추천의 경우</div>
+                                <div class="col-12 text-secondary">보다 정확한 DB 분석으로</div>
+                                <div class="col-12 text-secondary">데이터를 처리하므로</div>
+                                <div class="col-12 text-white"><b><u>약 30초 ~ 1분 정도</u></b></div>
+                                <div class="col-12 text-secondary">소요될 수 있습니다.</div>
+                            {% else %}
+                                <div class="col-12 text-secondary">로그인 후 이용할 수 있는 서비스 입니다.</div>
+                            {% endif %}
+                            </div>
+                            </div>
+                            <div class="modal-footer"style="border-top: 0px;">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'movies:foryou' %}" class="btn btn-warning btn-sm">추천받기</a>
+                            {% endif %}
+                            </div>
+                        </div>
+                        </div>
+                    </div>                    
+                    <!-- <a href="" class="col-8 col-sm-10 mx-1 btn btn-outline-danger mt-2">프리미엄</a>                 -->
+                </div>
+                <div class="row d-flex justify-content-center mt-5">
+                    <a href="{% url 'movies:index' %}" class="text-secondary">< Go Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

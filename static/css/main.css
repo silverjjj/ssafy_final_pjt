@@ -1,0 +1,87 @@
+.main-body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.our-main {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.our-main-logoname {
+    font-weight: 800;
+    font-size: 40px;
+    color: rgb(226, 226, 226);
+    text-shadow: 3px 3px 6px rgb(124, 124, 124);
+    letter-spacing: 0.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.our-main-logoex {
+    font-weight: 400;
+    font-size: small;
+    color: rgb(187, 187, 187);
+    letter-spacing: 0.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.our-main-url:hover {
+    text-decoration: none;
+    color: rgb(146, 0, 0);
+}
+
+/* company-intro 페이지 */
+.company-intro {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(/static/img/background/us.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.company-explain {
+    background-color: black;
+    filter: opacity(80%);
+}
+
+.company-intro-logo {
+    font-weight: 800;
+    font-size: xx-large;
+    color: rgb(226, 226, 226);
+    text-shadow: 3px 3px 6px rgb(124, 124, 124);
+    letter-spacing: 0.1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.company-intro-logoimg {
+    width: 50px;
+    height: auto;
+}
+
+.company-intro-title1 {
+    font-weight: bold;
+    font-size: larger;
+    color: rgb(172, 172, 172);
+}
+
+.company-intro-title2 {
+    font-weight: 300;
+    font-size: medium;
+    color: grey;
+}
+
+.company-intro-tohome {
+    width: 20px;
+}
+
+.company-intro-tohome-ex {
+    width: 20px;
+    color: grey;
+}
+
+.company-intro-tohome-ex:hover {
+    color: rgb(219, 219, 219);
+    text-decoration: none;
+}

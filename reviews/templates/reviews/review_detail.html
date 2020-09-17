@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<div class="my-5 py-5">
+    <!-- 리뷰 -->
+    <div class="my-4 mx-2">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">REVIEW</div>
+                <!-- 리뷰 기본 정보 -->
+                <div class="row">
+                    <div class="d-block d-sm-none col-4"><img src="https://image.tmdb.org/t/p/original/{{ review.movie.poster_path }}" class="w-100" alt=""></div>
+                    <div class="d-none d-sm-block d-lg-none col-3"><img src="https://image.tmdb.org/t/p/original/{{ review.movie.poster_path }}" class="w-100" alt=""></div>
+                    <div class="d-none d-lg-block col-2"><img src="https://image.tmdb.org/t/p/original/{{ review.movie.poster_path }}" class="w-100" alt=""></div>
+                    <div class="col-8">
+                        <div class="row mb-1"><a href="{% url 'movies:m_detail' review.movie.pk %}" class=" review-detail-sm-movie">「 {{ review.movie.title }} 」</a></div>
+                        <div class="d-block d-sm-none row review-detail-sm-title">{{ review.title }}</div>
+                        <div class="d-none d-sm-block row review-detail-sm-title-2">{{ review.title }}</div>
+                        <div class="row review-detail-sm-writer mb-2">written by {{ review.writer }}</div>
+                        <div class="d-none d-sm-block row review-detail-sm-content mt-5">{{ review.content }}</div>
+                    </div>
+                </div>
+                <!-- 리뷰 글 -->
+                <div class="row mt-3 mb-2 d-block d-sm-none">
+                    <div class="col-12 review-detail-sm-content">
+                        {{ review.content }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="d-block d-sm-none col-12 review-detail-sm-day text-right">작성일 :{{ review.created_at }}</div>
+                    <div class="d-block d-sm-none col-12 review-detail-sm-uday text-right">수정일 :{{ review.updated_at }}</div>
+                    <div class="d-none d-sm-block col-12 review-detail-sm-day-lg text-right">수정일 :{{ review.updated_at }} | 작성일 :{{ review.created_at }}</div>
+                    <div class="col-12 review-detail-sm-likedpeople text-right mt-4" id="follower-count-{{ review.writer.pk }}">총 {{ review.writer.followers.all|length }} 명이 작성자를 팔로우하고 있습니다.</div>
+                    <div class="col-12 review-detail-sm-likedpeople text-right" id="like-count-{{ review.pk }}">총 {{ review.like_users.all|length }} 명의 이용자가 이 리뷰를 좋아합니다.</div>
+                    {% if request.user.is_authenticated %}
+                    <div class="col-12 text-right mt-1">
+                        {% if request.user == review.writer %}
+                        <a href="{% url 'reviews:review_update' review.pk %}" class="btn btn-warning btn-sm text-light px-2 py-0 ml-1">수정하기</a>
+                        <a href="{% url 'reviews:review_delete' review.pk %}" class="btn btn-secondary btn-sm text-light px-2 py-0 ml-1">삭제하기</a>
+                        {% else %}
+                            {% if request.user in review.writer.followers.all %}
+                                <a href="" data-id="{{ review.writer.pk }}" id="follow-button" class="btn btn-secondary btn-sm text-light px-2 py-0 ml-1 review-detail-sm-follow">팔로우 취소</a>
+                            {% else %}
+                                <a href="" data-id="{{ review.writer.pk }}" id="follow-button" class="btn btn-secondary btn-sm text-light px-2 py-0 ml-1 review-detail-sm-follow">작성자 팔로우 하기</a>
+                            {% endif%}
+                            {% if request.user in review.like_users.all %}
+                            <i class="fas fa-heart fa-md like-button ml-2" style="color:crimson" data-id="{{ review.pk }}"></i>
+                            {% else %}
+                            <i class="fas fa-heart fa-md like-button ml-2" style="color:grey" data-id="{{ review.pk }}"></i>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 댓글 -->
+    <div class="my-4 mx-2 pt-5">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">COMMENTS</div>
+                <!-- 댓글 form -->
+                <div class="row">
+                    <form action="" method="POST" class="col-12 review-detail-sm-form d-flex align-items-center">
+                        {% csrf_token %}
+                        <div class="w-75">{% bootstrap_form commentform %}</div>
+                        <button class="btn btn-warning btn-sm review-detail-sm-submitbutton font-weight-bold mt-3 align-self-cend mx-1 w-25">등록</button>
+                    </form>
+                </div>
+                <!-- 댓글 리스트 -->
+                {% if review.comment_set.count %}
+                <div class="row">
+                    {% for comment in review.comment_set.all %}
+                    <div class="review-detail-sm-comment-box ml-3 my-1"></div>
+                    <div class="col-12 row my-2">
+                        <div class="d-block d-sm-none col-3"><img src="/static/img/profile/member.png" alt="user" class="w-100 mt-2"></div>
+                        <div class="d-none d-sm-block d-lg-none col-2"><img src="/static/img/profile/member.png" alt="user" class="w-50 mt-2"></div>
+                        <div class="d-none d-lg-block col-1"><img src="/static/img/profile/member.png" alt="user" class="w-50 mt-2"></div>
+                        <div class="d-block d-sm-none col-9">
+                            <div class="row review-detail-sm-comment-writer">comment by &nbsp;<u> {{ comment.c_writer }}</u></div>
+                            <div class="row review-detail-sm-comment-content">{{ comment.content }}</div>
+                            <div class="row review-detail-sm-comment-created mt-2">작성: {{ comment.created_at }}</div>
+                            <div class="row review-detail-sm-comment-updated">수정: {{ comment.updated_at }}</div>
+                            {% if request.user == comment.c_writer %}
+                            <div class="ml-auto d-flex justify-content-end"><a href="{% url 'reviews:comment_delete' review.pk comment.pk %}" class="review-detail-sm-comment-submit btn btn-danger p-0 px-1 m-0 mt-1 btn-sm"><img src="/static/img/delete.png" width="15px" alt="delete" class="mb-1"></a></div>
+                            {% endif %}
+                        </div>
+                        <div class="d-none d-sm-block d-lg-none col-10">
+                            <div class="row review-detail-sm-comment-writer">comment by &nbsp;<u> {{ comment.c_writer }}</u></div>
+                            <div class="row review-detail-sm-comment-content">{{ comment.content }}</div>
+                            <div class="row review-detail-sm-comment-created mt-2">작성: {{ comment.created_at }}</div>
+                            <div class="row review-detail-sm-comment-updated">수정: {{ comment.updated_at }}</div>
+                            {% if request.user == comment.c_writer %}
+                            <div class="ml-auto d-flex justify-content-end"><a href="{% url 'reviews:comment_delete' review.pk comment.pk %}" class="review-detail-sm-comment-submit btn btn-danger p-0 px-1 m-0 mt-1 btn-sm"><img src="/static/img/delete.png" width="15px" alt="delete" class="mb-1"></a></div>
+                            {% endif %}
+                        </div>
+                        <div class="d-none d-lg-block col-11">
+                            <div class="row review-detail-sm-comment-writer">comment by &nbsp;<u> {{ comment.c_writer }}</u></div>
+                            <div class="row review-detail-sm-comment-content">{{ comment.content }}</div>
+                            <div class="row review-detail-sm-comment-created mt-2">작성: {{ comment.created_at }}</div>
+                            <div class="row review-detail-sm-comment-updated">수정: {{ comment.updated_at }}</div>
+                            {% if request.user == comment.c_writer %}
+                            <div class="ml-auto d-flex justify-content-end"><a href="{% url 'reviews:comment_delete' review.pk comment.pk %}" class="review-detail-sm-comment-submit btn btn-danger p-0 px-1 m-0 mt-1 btn-sm"><img src="/static/img/delete.png" width="15px" alt="delete" class="mb-1"></a></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-secondary text-center mt-2">아직 댓글이 없습니다. 첫 댓글을 달아주세요 :)</div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+    <script src="https://kit.fontawesome.com/9444b3a811.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const likeButtonList = document.querySelectorAll('.like-button')
+        likeButtonList.forEach(likeButton => {
+        likeButton.addEventListener('click', function(event){
+            const reviewId = event.target.dataset.id
+            {% if user.is_authenticated %}
+            axios.get(`/reviews/${reviewId}/like/`)
+            .then(response => {
+                const likeCount = response.data.count
+                document.querySelector(`#like-count-${reviewId}`).innerText = `총 ${likeCount} 명의 이용자가 이 리뷰를 좋아합니다.`
+                if (response.data.liked === true){
+                event.target.style.color = 'crimson'
+                } else {
+                event.target.style.color = 'grey'
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            {% else %}
+            alert('비로그인 사용자는 좋아요를 누를 수 없습니다.')
+            {% endif %}
+        })
+        })
+        const followButtonList = document.querySelectorAll('#follow-button')
+        followButtonList.forEach(followButton => {
+            followButton.addEventListener('click', function(event){
+                event.preventDefault()
+                const writerId = event.target.dataset.id
+                console.log(writerId)
+                {% if user.is_authenticated %}
+                axios.get(`/accounts/${writerId}/follow/`)
+                .then(res => {
+                    const followersCount = res.data.followercount
+                    document.querySelector(`#follower-count-${writerId}`).innerText = `총 ${followersCount} 명이 작성자를 팔로우하고 있습니다.`
+                    if (res.data.followed === true){
+                        event.target.innerText = '작성자 팔로우 취소'
+                    } else {
+                        event.target.innerText = '작성자 팔로우 하기'
+                    }
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                {% else %}
+                alert('비로그인 사용자는 팔로우를 할 수 없습니다.')
+                {% endif %}
+            })
+        })
+    </script>
+
+{% endblock %}

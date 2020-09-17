@@ -1,0 +1,102 @@
+/* 화면 클때 */
+.team-profile-name-lg {
+    font-size: xx-large;
+    color: white;
+    font-weight: 500;
+}
+
+.team-profile-hello-lg {
+    font-size: large;
+    color: rgb(175, 175, 175);
+    font-weight: 400;
+}
+
+.team-profile-ex-lg {
+    font-size: medium;
+    color: rgb(129, 129, 129);
+    font-weight: 400;
+}
+
+.team-profile-follower-lg {
+    font-size: medium;
+    color: rgb(129, 129, 129);
+    font-weight: 400;
+}
+
+.team-profile-object-lg {
+    font-size: medium;
+    color: grey;
+    font-weight: 400;
+}
+
+.team-profile-cnt-lg {
+    font-size: xx-large;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+
+.team-profile-setting-lg {
+    color: rgb(202, 202, 202);
+    font-size: medium;
+    font-weight: 300;
+    margin: 5px 10px;
+}
+
+.team-profile-setting-lg:hover {
+    color: rgb(104, 104, 104);
+    text-decoration: none;
+}
+
+.team-content {
+    color: rgb(202, 202, 202);
+    font-size: medium;
+    font-weight: 300;
+    margin: 5px 10px;
+}
+
+.team-content:hover {
+    color: rgb(104, 104, 104);
+    text-decoration: none;
+}
+
+.mybox {
+    width: 100%;
+}
+
+.team-intro {
+    color: white;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(153, 0, 0);
+}
+
+.team-profile-box {
+    padding: 10px 15px;
+}
+
+.team-profile-name {
+    color: rgb(226, 226, 226);
+    font-size: x-large;
+    font-weight: 600;
+    margin-bottom: 10px;
+
+}
+
+.team-profile-info {
+    color: rgb(172, 171, 171);
+    font-size: small;
+}
+
+.team-profile-item {
+    padding: 0;
+    text-decoration: underline;
+    color: rgb(128, 128, 128);
+}
+
+.team-profile-item-data {
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    font-size: xx-large;
+}
+

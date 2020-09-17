@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWEEZERS</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="company-intro d-flex justify-content-center align-items-center">
+        <div class="company-explain w-75 h-75 d-flex align-items-center">
+            <div class="container">
+                <dic class="row h-100 d-flex align-items-stratch">
+                    <div class="col-12 w-100 text-center px-0 company-intro-logo mb-3"><img src="/static/img/logo.png" class="company-intro-logoimg" alt="logo">TWEEZERS</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title1 mb-1">사용자에게</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title1 mb-1"><span class="text-warning">꼭</span> 맞는 영화를</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title1 mb-4"><span class="text-warning">콕</span> 집어 추천!</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title2 pt-3 ">트위저스는 영화 정보와 순위를 포함</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title2">추천, 커뮤니티 서비스를 제공하는</div>
+                    <div class="col-12 w-100 text-center px-0 company-intro-title2 mb-5 pb-5">통합적인 영화 컨텐츠 플랫폼입니다.</div>
+                    <div class="col-12 w-100 text-center px-0"><a href="{% url 'movies:index' %}" class="company-intro-tohome-ex"><img src="/static/img/bottomnav/home.png" class="company-intro-tohome mx-2" alt="">영화 메인으로 돌아가기</a></div>
+                </dic>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

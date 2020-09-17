@@ -1,0 +1,101 @@
+.today-choice-intro {
+    font-size: large;
+    font-weight: 500;
+    color: grey;
+}
+
+.today-choice-title {
+    font-size: xx-large;
+    font-weight: 800;
+    color:white;
+}
+
+.today-choice-otitle {
+    font-size: medium;
+    font-weight: 300;
+    color: rgb(199, 199, 199);
+}
+
+.today-choice-date {
+    font-size: medium;
+    font-weight: 300;
+    color: grey;
+}
+
+.today-choice-vote {
+    font-size: medium;
+    font-weight: 300;
+    color:grey;
+}
+
+.today-choice-genre {
+    list-style-type: none;
+    font-size: medium;
+    padding: 0;
+}
+
+.today-choice-genre-item {
+    color:grey;
+}
+
+.red-line {
+    width: 10vw;
+    height: 5px;
+    background-color: rgb(153, 0, 0);
+}
+
+.red-line-lg {
+    width: 5vw;
+    height: 5px;
+    background-color: rgb(153, 0, 0);
+}
+
+
+/* small size */
+.today-choice-intro-sm {
+    font-size: large;
+    font-weight: 500;
+    color: grey;
+}
+
+.today-choice-title-sm {
+    font-size: x-large;
+    font-weight: 800;
+    color:white;
+}
+
+.today-choice-otitle-sm {
+    font-size: medium;
+    font-weight: 300;
+    color: rgb(199, 199, 199);
+}
+
+.today-choice-date-sm {
+    font-size: medium;
+    font-weight: 300;
+    color: grey;
+}
+
+.today-choice-vote-sm {
+    font-size: medium;
+    font-weight: 300;
+    color:grey;
+}
+
+.today-choice-genre-sm {
+    list-style-type: none;
+    font-size: medium;
+    padding: 0;
+}
+
+.genre-ex:hover {
+    text-decoration: none;
+    color: rgb(88, 88, 88);
+}
+
+
+/* 검색 */
+/* .movie-detail-search-button {
+    width: 100%;
+    margin-left: auto;
+} */

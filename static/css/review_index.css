@@ -1,0 +1,31 @@
+.review-data {
+    color: gray;
+}
+
+.review-data:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.review-best-people {
+    color: rgb(190, 190, 190);
+    padding: 2px 0;
+}
+
+.review-best-people-sm {
+    font-size: small;
+    color: rgb(190, 190, 190);
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.review-data-sm {
+    color: gray;
+    font-size: small;
+}
+
+.review-data-sm:hover {
+    color: white;
+    text-decoration: none;
+}

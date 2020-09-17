@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load bootstrap_pagination %} 
+{% block content %}
+<!-- {{ reviews }} -->
+<!-- 화면 클때 -->
+<div class="d-none d-lg-block try">
+  <div class="my-4 mx-2 pt-5">
+    <div class="d-flex pl-4 pr-4 align-items-end">
+      <div class="w-100 mx-5 px-3">
+        <div class=" row red-line mb-2"></div>
+        <div class="w-100 row today-choice-intro-sm mb-4">REVIEWS</div>
+        <div class="w-100 row">
+          <table class="table text-secondary text-center mt-2 mx-4 table-black w-100">
+            <thead>
+              <tr>
+                <th scope="col" class="text-white">No</th>
+                <th scope="col" class="text-white">movie</th>
+                <th scope="col" class="text-white">writer</th>
+                <th scope="col" class="text-white">title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in page_obj %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'movies:m_detail' r.movie.pk %}" class="review-data">{{ r.movie.title }}</a></td>
+                <td><a href="{% url 'reviews:review_detail' r.pk %}" class="review-data">{{ r.writer }}</a></td>
+                <td><a href="{% url 'reviews:review_detail' r.pk %}" class="review-data">{{ r.title }}</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination">
+    <span class="step-links w-100 text-center text-secondary  mt-4 mb-5 pb-3">
+        {% if page_obj.has_previous %}
+        
+            <a href="?page=1" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">< FIRST</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">< PREVIOUS</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">NEXT ></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">LAST ></a>
+        {% endif %}
+    </span>
+  </div>
+</div>
+
+<div class="d-block d-lg-none mb-5 pb-5">
+  <div class="my-4 mx-2 pt-5">
+    <div class="d-flex pl-4 pr-4 align-items-end">
+      <div class="container w-100 px-0">
+        <div class="row red-line mb-2"></div>
+        <div class="row w-100 today-choice-intro-sm mb-4">REVIEWS</div>
+        <div class="row w-100 mx-0">
+          <table class="table text-secondary text-center mt-2 mx-4 table-black w-100">
+            <thead>
+              <tr>
+                <th scope="col" class="text-white">No</th>
+                <th scope="col" class="text-white">movie</th>
+                <th scope="col" class="text-white">title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in page_obj %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'movies:m_detail' r.movie.pk %}" class="review-data-sm">{{ r.movie.title }}</a></td>
+                <td><a href="{% url 'reviews:review_detail' r.pk %}" class="review-data-sm">{{ r.title }}</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination">
+    <span class="step-links w-100 text-center text-secondary">
+        {% if page_obj.has_previous %}
+        
+            <a href="?page=1" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">< FIRST</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">< PREVIOUS</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">NEXT > </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn text-white btn-sm btn-outline-secondary pt-0 px-1">LAST > </a>
+        {% endif %}
+    </span>
+</div>
+</div>
+<style>
+
+</style>
+{% endblock %}

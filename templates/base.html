@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWEEZERS</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+    <link rel="stylesheet" href="{% static 'css/review_index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/team.css' %}">
+    <link rel="stylesheet" href="{% static 'css/review_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/boxoffice.css' %}">
+    <link rel="stylesheet" href="{% static 'css/movie_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/movie_index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-none d-md-block navbox">
+        <nav class="top-navbar d-flex justify-content-between">
+            <div class="left-nav">
+                <div class="left-nav-item">
+                    <div class="left-nav-logo"><a href="/" class="left-nav-logo"><img src="/static/img/logo2.png" alt="" height="35px" class="nav-search-img">TWEEZERS</a></div>
+                    <small class="left-nav-logo-ex ml-1" style="letter-spacing: 0.15rem; color: grey;">BEST MOVIE PICKER FOR YOU</small>
+                </div>
+            </div>
+            <div class="right-nav">
+                <ul class="right-nav-items d-flex">
+                    <li class="right-nav-item"><a href="{% url 'movies:index' %}" class="nav-link">MOVIES</a></li>
+                    <li class="right-nav-item"><a href="{% url 'movies:boxoffice' %}" class="nav-link">BOXOFFICE</a></li>
+                    <li class="right-nav-item"><a href="{% url 'movies:recommendation' %}" class="nav-link">FOR YOU</a></li>
+                    <li class="right-nav-item"><a href="{% url 'reviews:index' %}" class="nav-link">REVIEW</a></li>
+                    <li class="right-nav-item"><a href="{% url 'movies:find' %}" class="nav-link"><img src="/static/img/search.png" alt="" height="22px" class="nav-search-img"></a></li>
+                    <li class="right-nav-item"><a href="{% url 'team:index' %}" class="nav-link"><img src="/static/img/menu1.png" alt="" height="25px" class="nav-profile-img"></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div class="bottom-nav d-block d-lg-none">
+        <nav class="bottom-navbar fixed-bottom">
+            <ul class="bottom-nav-items d-flex justify-content-around">
+                <li class="bottom-nav-item">
+                    <a href="{% url 'movies:index' %}" class="bottom-nav-item-link">
+                        <div class="text-center"><img src="/static/img/bottomnav/movies.png" width="30px"alt=""></div>
+                        <div class="bottom-nav-item-ex text-center">MOVIES</div>
+                    </a>
+                </li>
+                <li class="bottom-nav-item">
+                    <a href="{% url 'movies:boxoffice' %}" class="bottom-nav-item-link">
+                        <div class="text-center"><img src="/static/img/bottomnav/chart.png" width="30px" alt=""></div>
+                        <div class="bottom-nav-item-ex text-center">BOXOFFICE</div>
+                    </a>
+                </li>
+                <li class="bottom-nav-item">
+                    <a href="{% url 'movies:recommendation' %}" class="bottom-nav-item-link">
+                        <div class="text-center"><img src="/static/img/bottomnav/recommendation.png" width="30px" alt=""></div>
+                        <div class="bottom-nav-item-ex text-center">For YOU</div>
+                    </a>
+                </li>
+                <li class="bottom-nav-item">
+                    <a href="{% url 'reviews:index' %}" class="bottom-nav-item-link">
+                        <div class="text-center"><img src="/static/img/bottomnav/community.png" width="30px" alt=""></div>
+                        <div class="bottom-nav-item-ex text-center">COMMUNITY</div>
+                    </a>
+                </li>
+                <li class="bottom-nav-item">
+                    <a href="{% url 'team:index' %}" class="bottom-nav-item-link">
+                        <div class="text-center"><img src="/static/img/bottomnav/menu.png" width="30px" alt=""></div>
+                        <div class="bottom-nav-item-ex text-center">MENU</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- 화면 sm 이상 -->
+    <div class="d-none d-md-block pt-4 mt-4">
+      <!-- 영화 정보 -->
+      <div class="my-4 mx-2">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row detail-red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">영화 상세보기</div>
+                <div class="row movie-detail pt-3">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-4"><img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100" alt=""></div>
+                      <div class="offset-1 col-7 align-items-center">
+                        <div class="h-100">
+                          <div class="">
+                            <div class="row movie-detail-title">{{ movie.title }}</div>
+                            <div class="row movie-detail-otitle mb-4">{{ movie.original_title }}</div>
+                          </div>
+                          <div class="">
+                            <div class="row movie-detail-date">개봉: {{ movie.release_date }}</div>
+                            <div class="row movie-detail-vote">평점: {{ movie.vote_average }}</div>
+                            <div class="row movie-detail-lan">국가: {{ movie.original_language }}</div>                        
+                            <div class="row mt-3">
+                              {% for genre in movie.genres.all %}
+                              <div  class="movie-detail-genre">| {{ genre }} |</div>
+                              {% endfor %}
+                            </div>
+                            <div class="row movie-detail-overview mt-3">{{ movie.overview }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-5 w-100 justify-content-end mx-0">
+                    {% if request.user.is_authenticated %}
+                        {% if r %}
+                        <a href="{% url 'movies:rate_update' movie.pk %}" class="btn btn-warning btn-sm px-2 mx-1">평점 수정</a>
+                        <a href="{% url 'movies:rate_delete' movie.pk %}" class="btn btn-outline-warning btn-sm text-light px-2 mx-1">평점 삭제</a>
+                        {% else %}
+                        <a href="{% url 'movies:rate' movie.pk %}" class="btn btn-warning btn-sm text-light px-2 mx-1">평점 주기</a>
+                        {% endif %}
+                        <a href="{% url 'reviews:review_create' movie.pk %}" class="btn btn-secondary btn-sm text-light px-2 mx-1">리뷰 쓰기</a>
+                        <div id="mlike-button"  data-id="{{ movie.pk }}" class="btn btn-danger btn-sm text-light px-2 mx-1">♥</div>
+                    {% else %}
+                    <div class="col-12 review-detail-sm-likedpeople text-right mt-1">평점 등록, 리뷰 작성, 좋아요 서비스는 로그인 후 이용하실 수 있습니다.</div>
+                    {% endif %}
+                      <div class="col-12 review-detail-sm-likedpeople text-right mt-1" id="like-count-{{ movie.pk }}">총 {{ count }} 명의 이용자가 이 영화를 좋아합니다.</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- 영화 스틸컷 -->
+        <div class="my-4 mx-2 pt-5 mb-4 pb-4">
+          <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+              <div class="row detail-red-line mb-2"></div>
+              <div class="row today-choice-intro-sm mb-4">스틸컷</div>
+              <div class="row movie-detail pt-3">
+                <img src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" class="w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- 화면 sm 일때 -->
+    <div class="d-block d-md-none mb-5 pb-5">
+      <!-- 영화 정보 -->
+      <div class="my-4 mx-2">
+        <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row detail-red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">영화 상세보기</div>
+                <div class="row movie-detail pt-3">
+                  <div class="container">
+                      <div class="row"><img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="w-100" alt=""></div>
+                      <div class="row align-items-center">
+                        <div class="h-100 mx-3 mt-3">
+                            <div class="row movie-detail-title-sm">{{ movie.title }}</div>
+                            <div class="row movie-detail-otitle-sm mb-4">{{ movie.original_title }}</div>
+                            <div class="row movie-detail-date-sm">개봉: {{ movie.release_date }}</div>
+                            <div class="row movie-detail-vote-sm">평점: {{ movie.vote_average }}</div>
+                            <div class="row movie-detail-lan-sm">국가: {{ movie.original_language }}</div>                        
+                            <div class="row mt-3">
+                              {% for genre in movie.genres.all %}
+                              <div  class="movie-detail-genre-sm">| {{ genre }} |</div>
+                              {% endfor %}
+                            </div>
+                            <div class="row movie-detail-overview-sm mt-3">{{ movie.overview }}</div>
+                        </div>
+                      </div>
+                    <div class="row mt-5 w-100 justify-content-end mx-0">
+                    {% if request.user.is_authenticated %}
+                      {% if r %}
+                      <a href="{% url 'movies:rate_update' movie.pk %}" class="btn btn-warning btn-sm text-light px-2 mx-1">평점 수정</button>
+                      <a href="{% url 'movies:rate_delete' movie.pk %}" class="btn btn-outline-warning btn-sm text-light px-2 mx-1">평점 삭제</button>
+                      {% else %}
+                      <a href="{% url 'movies:rate' movie.pk %}" class="btn btn-warning btn-sm text-light px-2 mx-1">평점 주기</a>
+                      {% endif %}
+                      <a href="{% url 'reviews:review_create' movie.pk %}" class="btn btn-secondary btn-sm text-light px-2 mx-1">리뷰 쓰기</a>
+                      <div id="mlike-button" data-id="{{ movie.pk }}" class="btn btn-danger btn-sm text-light px-2 mx-1">♥</div>
+                    {% else %}
+                    <div class="col-12 review-detail-sm-likedpeople text-right mt-1" >평점 등록, 리뷰 작성, 좋아요 서비스는 로그인 후 이용하실 수 있습니다.</div>
+                      {% endif %}
+                      <div class="col-12 review-detail-sm-likedpeople text-right mt-1" id="like-count-{{ movie.pk }}">총 {{ count }} 명의 이용자가 이 영화를 좋아합니다.</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- 영화 스틸컷 -->
+        <div class="my-4 mx-2 pt-5 mb-4 pb-4">
+          <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+              <div class="row detail-red-line mb-2"></div>
+              <div class="row today-choice-intro-sm mb-4">스틸컷</div>
+              <div class="row movie-detail pt-3">
+                <img src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" class="w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const likeButtonList = document.querySelectorAll('#mlike-button')
+        likeButtonList.forEach(likeButton => {
+        likeButton.addEventListener('click', function(event){
+            const movieId = event.target.dataset.id
+            {% if user.is_authenticated %}
+            axios.get(`/movies/${movieId}/like/`)
+            .then(response => {
+                const likeCount = response.data.count
+                const Result = document.querySelectorAll(`#like-count-${movieId}`)
+                Result.forEach(element => {
+                  element.innerText = `총 ${likeCount} 명의 이용자가 이 영화를 좋아합니다.`
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            {% else %}
+            alert('비로그인 사용자는 좋아요를 누를 수 없습니다.')
+            {% endif %}
+        })
+        })
+   </script>
+{% endblock %}

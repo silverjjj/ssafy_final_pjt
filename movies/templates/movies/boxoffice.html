@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- 화면 sm 이상 -->
+    <div class="d-none d-lg-block py-4">
+        <div class="my-4 mx-2 pt-5 mb-4 pb-4 mb-5">
+          <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+              <div class="row detail-red-line mb-2"></div>
+              <div class="row today-choice-intro-sm mb-4">BOXOFFICE</div>
+                <div class="row text-right text-secondary ml-auto mt-4 justify-content-end pt-5">출처 : 영화진흥위원회</div>
+                <table class="table text-secondary text-center mt-2 mx-4 table-black">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-white">순위</th>
+                        <th scope="col" class="text-white">영화</th>
+                        <th scope="col" class="text-white">누적관객수(명)</th>
+                        <th scope="col" class="text-white">순위 변화</th>
+                        <th scope="col" class="text-white">신규진입 여부</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for movie in movies %}
+                      <tr>
+                        <th scope="row">{{ movie.rank }}</th>
+                        <td>{{ movie.movieNm }}</td>
+                        <td>{{ movie.audiAcc }}</td>
+                        {% if movie.rankInten == '0' %}
+                          <td>-</td>
+                          {% else %}
+                            {% if '-' not in movie.rankInten  %}
+                            <td style="color: rgb(177, 45, 45);">▲&nbsp;<span style="color: grey;">{{ movie.rankInten }}</span></td>
+                            {% else %}
+                            <td style="color: rgb(43, 43, 168);">▼&nbsp;<span style="color: grey;">{{ movie.rankInten }}</span></td>
+                            {% endif %}
+                        {% endif %}
+                        <td>{{ movie.rankOldAndNew }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- 화면 sm 일때 -->
+    <div class="d-block d-lg-none mb-5 pb-3">
+        <div class="my-4 mx-2 pt-5 mb-4 pb-4">
+          <div class="d-flex pl-4 pr-4 align-items-end">
+            <div class="container">
+              <div class="row detail-red-line mb-2"></div>
+              <div class="row today-choice-intro-sm mb-4">BOXOFFICE</div>
+              <div class="row boxoffice-false pt-3">
+                <div class="text-secondary ml-auto mr-4 boxoffice-text-size">출처 : 영화진흥위원회</div>
+                <table class="table table-sm text-secondary text-center mt-2 mx-2 table-black">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-white boxoffice-text-size">순위</th>
+                        <th scope="col" class="text-white boxoffice-text-size">영화</th>
+                        <th scope="col" class="text-white boxoffice-text-size">순위 변화</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for movie in movies %}
+                      <tr>
+                        <th scope="row" class="boxoffice-text-size">{{ movie.rank }}</th>
+                        <td class="boxoffice-text-size">{{ movie.movieNm }}</td>
+                        {% if movie.rankInten == '0' %}
+                        <td>-</td>
+                        {% else %}
+                          {% if '-' not in movie.rankInten  %}
+                          <td style="color: rgb(177, 45, 45);">▲&nbsp;<span style="color: grey;">{{ movie.rankInten }}</span></td>
+                          {% else %}
+                          <td style="color: rgb(43, 43, 168);">▼&nbsp;<span style="color: grey;">{{ movie.rankInten }}</span></td>
+                          {% endif %}
+                        {% endif %}
+                        <!-- <td class="boxoffice-text-size">{{ movie.rankInten }}</td> -->
+                      </tr>
+                      {% endfor %}
+                      <tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}

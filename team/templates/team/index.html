@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 크기 클 때 -->
+<div class="d-none d-md-block mb-5 pb-5">
+    <div class="container pt-5 mt-3">
+        {% if request.user.is_authenticated %}
+        <div class="row">
+            <div class="offset-1 col-3"><img src="/static/img/profile/member.png" alt="user" width="150px"></div>
+            <div class="col-8">
+                <div class="row team-profile-name-lg">{{ request.user.username }} 님,</div>
+                <div class="row team-profile-hello-lg mt-3">TWEEZERS와 함께 즐거운 하루 보내세요 :)</div>
+                <div class="row team-profile-follower-lg">FOLLOWERS : {{ request.user.followers.count }} | FOLLOWINGS : {{ request.user.followings.count }} </div>
+            </div>
+        </div>
+        <div class="row pb-5 my-5 justify-content-center">
+            <div class="col-3">
+                <div class="row justify-content-center team-profile-object-lg">MOVIE</div>
+                <div class="row justify-content-center team-profile-cnt-lg">{{ moviecnt }}</div>
+            </div>
+            <div class="col-3">
+                <div class="row justify-content-center team-profile-object-lg">REVIEW</div>
+                <div class="row justify-content-center team-profile-cnt-lg">{{ request.user.review_set.count }}</div>
+            </div>
+            <div class="col-3">
+                <div class="row justify-content-center team-profile-object-lg">COMMENT</div>
+                <div class="row justify-content-center team-profile-cnt-lg">{{ request.user.comment_set.count }}</div>
+            </div>
+            <div class="col-3">
+                <div class="row justify-content-center team-profile-object-lg">POINT</div>
+                <div class="row justify-content-center team-profile-cnt-lg">{{ cnt }}</div>
+            </div>
+        </div>
+        <div class="row mt-5 pt-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">실시간 명대사</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary team-profile-setting-lg text-warning ml-3 mt-5">「 {{ goodline.movie }} 」</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary team-profile-setting-lg mt-3 ml-3">{{ goodline.line }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 pt-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">계정 설정</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary team-profile-setting-lg"><a href="{% url 'accounts:logout' %}" class="text-secondary team-profile-setting-lg"> ▶ 로그아웃</a></div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="offset-1 col-3"><img src="/static/img/profile/anonymous.png" alt="anonymous user" width="150px"></div>
+            <div class="col-8">
+                <div class="row team-profile-name-lg">반갑습니다! 고객님,</div>
+                <div class="row team-profile-hello-lg mt-3">TWEEZERS와 함께 즐거운 하루 보내세요 :)</div>
+                <div class="row team-profile-ex-lg mt-3">TWEEZERS는 영화 순위와 상세 정보를 포함해 영화에 관련된</div>
+                <div class="row team-profile-ex-lg ">추천, 커뮤니티 서비스를 제공하는 통합적인 컨텐츠 플랫폼 입니다.</div>
+            </div>
+        </div>
+        <div class="row mt-5 pt-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">실시간 명대사</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary team-profile-setting-lg text-warning">「 {{ goodline.movie }} 」</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary team-profile-setting-lg">{{ goodline.line }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 pt-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">계정 설정</div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary"><a href="{% url 'accounts:login' %}" class=" team-profile-setting-lg"> ▶ 로그인</a></div>
+                    <div class="row w-100 pl-3 justify-content-start text-secondary"><a href="{% url 'accounts:signup' %}" class=" team-profile-setting-lg"> ▶ 회원가입</a></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row mt-5 pt-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">고객지원</div>
+                    <div class="row w-100 justify-content-between d-flex text-secondary">
+                        <div class="team-profile-setting-lg"> ▶ 버전 정보</div>
+                        <div>1.0.0</div>
+                    </div>
+                    <div class="row team-content"><a href="{% url 'team:intro' %}" class="team-profile-setting-lg"> ▶ TWEEZERS 소개</a></div>
+                    <div class="row team-content team-profile-setting-lg"><a href="" class="team-content team-profile-setting-lg"> ▶ 오픈소스라이선스</a></div>
+                    <div class="row text-secondary pl-4">- tmdb api</div>
+                    <div class="row text-secondary pl-4">- 영화진흥위원회 api</div>
+                    <div class="row text-secondary pl-4">- animate.css</div>
+                    <div class="row text-secondary pl-4">- bootstrap</div>
+                    <div class="row text-secondary pl-4">- flaticon</div>
+                    <div class="row text-secondary pl-4">- https://unsplash.com</div>
+                    <div class="row text-secondary pl-4">- http://websitename.com/favicon.ico</div>
+                </div>
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="row my-5 py-5 mx-3">
+            <div class="container">
+                <div class="px-3 w-100">
+                    <div class="row red-line mb-2"></div>
+                    <div class="row today-choice-intro-sm mb-4 w-100">My Info</div>
+                    {% if request_cnt != 0 %}
+                        <div class="team-profile-setting-lg row mb-2">▶ 총 {{ requests_cnt }} 편의 영화 요청</div>
+                        {% for r in requests %}
+                        <div class="row text-secondary pl-4">- {{ r.movie_request }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+<!-- 크기 작을 때 -->
+<div class="d-block d-md-none mb-5 mybox">
+    {% if request.user.is_authenticated %}
+    <div class="row justify-content-center team-intro">{{ request.user.username }}, Have a nice day :)</div>
+    <div class="row team-profile-box">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-4"><img src="/static/img/profile/member.png" class="w-100" alt="user"></div>
+                <div class="col-8 pl-4">
+                    <div class="row team-profile-name mt-3">ID : {{ request.user.username }}</div>
+                    <div class="row team-profile-info">FOLLOWERS : {{ request.user.followers.all.count }}</div>
+                    <div class="row team-profile-info">FOLLOWINGS : {{ request.user.followings.all.count }}</div>
+                    <div class="row team-profile-info">REVIEWS : {{ request.user.review_set.all.count }}</div>
+                    <div class="row team-profile-info">POINTS : {{ cnt }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-4">
+            <div class="team-profile-item text-center px-0">Movies</div>
+            <div class="team-profile-item-data text-center px-0">{{ moviecnt }}</div>
+        </div>
+        <div class="col-4">
+            <div class="team-profile-item text-center px-0">Reviews</div>
+            <div class="team-profile-item-data text-center px-0">{{ request.user.review_set.all.count }}</div>
+        </div>
+        <div class="col-4">
+            <div class="team-profile-item text-center px-0">Comments</div>
+            <div class="team-profile-item-data text-center px-0">{{ request.user.comment_set.all.count }}</div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row team-intro justify-content-center ">Welcome to TWEEZERS :)</div>
+    {% endif %}
+    <div class="my-4 mx-2 pt-3">
+        <div class="d-flex mt-5 pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">실시간 명대사</div>
+                <div class="row mt-3 team-content text-warning ml-2">「 {{ goodline.movie }} 」</div>
+                <div class="row mt-3 team-content mx-3">{{ goodline.line }}</div>
+            </div>
+        </div>
+        <div class="d-flex mt-5 pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">계정 설정</div>
+                {% if request.user.is_authenticated %}
+                <div class="row mt-3 team-content"><a href="{% url 'accounts:logout' %}" class="team-content">▶ 로그아웃</a></div>
+                {% else %}
+                <div class="row mt-3 team-content"><a href="{% url 'accounts:signup' %}" class="team-content">▶ 회원가입</a></div>
+                <div class="row team-content"><a href="{% url 'accounts:login' %}" class="team-content"> ▶ 로그인</a></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="d-flex mt-5 pl-4 pr-4 align-items-end">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">고객 지원</div>
+                <div class="row mt-3 mb-2 team-content d-flex justify-content-between">
+                    <div class="mx-2"> ▶ 버전 정보</div>
+                    <div>1.0.0</div>
+                </div>
+                <div class="row team-content"><a href="{% url 'team:intro' %}" class="team-content"> ▶ TWEEZERS 소개</a></div>
+                <div class="row team-content"><a href="" class="team-content"> ▶ 오픈소스라이선스</a></div>
+                <div class="row text-secondary pl-4">- tmdb api</div>
+                <div class="row text-secondary pl-4">- 영화진흥위원회 api</div>
+                <div class="row text-secondary pl-4">- animate.css</div>
+                <div class="row text-secondary pl-4">- bootstrap</div>
+                <div class="row text-secondary pl-4">- flaticon</div>
+                <div class="row text-secondary pl-4">- https://unsplash.com</div>
+                <div class="row text-secondary pl-4">- http://websitename.com/favicon.ico</div>
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="d-flex mt-5 pl-4 pr-4 align-items-end pb-5">
+            <div class="container">
+                <div class="row red-line mb-2"></div>
+                <div class="row today-choice-intro-sm mb-4">My Info</div>
+                {% if request_cnt != 0 %}
+                    <div class="row team-content mx-1">▶ 총 {{ requests_cnt }} 편의 영화 요청</div>
+                    {% for r in requests %}
+                    <div class="row text-secondary pl-4">- {{ r.movie_request }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
